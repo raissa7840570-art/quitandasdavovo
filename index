@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quitutes da Vovó - Padaria & Confeitaria</title>
+  <style>
+    /* Variaveis de Cores e Temas */
+    :root {
+      --bg-color: #fcf8f2;
+      --card-bg: #ffffff;
+      --text-color: #4a3b32;
+      --primary-color: #d97736;
+      --primary-hover: #b85c1e;
+      --secondary-color: #8c6d58;
+      --border-color: #e6d7cc;
+      --table-header: #f7ebe1;
+      --accent-color: #2e7d32;
+    }
+
+    body.dark-mode {
+      --bg-color: #1a1614;
+      --card-bg: #29221f;
+      --text-color: #f3ece7;
+      --primary-color: #e08b4c;
+      --primary-hover: #f0a063;
+      --secondary-color: #d1b8a5;
+      --border-color: #443731;
+      --table-header: #382e29;
+      --accent-color: #66bb6a;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+    }
+
+    .theme-toggle-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+    }
+
+    .theme-btn {
+      background-color: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .theme-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    /* Cartões / Seções */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+    }
+
+    h2 {
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 8px;
+      color: var(--primary-color);
+      font-size: 1.4rem;
+    }
+
+    /* Tabelas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: var(--table-header);
+      color: var(--text-color);
+    }
+
+    /* Simulador de Orçamento */
+    .budget-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    select, input[type="number"] {
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 1rem;
+    }
+
+    .total-box {
+      background-color: var(--table-header);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: right;
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-top: 15px;
+      color: var(--accent-color);
+    }
+
+    .action-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .action-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .notes {
+      font-size: 0.85rem;
+      color: var(--secondary-color);
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="theme-toggle-container">
+      <button class="theme-btn" id="theme-btn">🌙 Modo Escuro</button>
+    </div>
+
+    <header>
+      <h1>🥖 Quitutes da Vovó 🍰</h1>
+      <p class="subtitle">Bolos, Roscas, Bolachas e Pães de Queijo Artesanais</p>
+    </header>
+
+    <!-- TABELA DE PREÇOS -->
+    <section class="card">
+      <h2>📋 Tabela de Preços de Venda</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>Produto</th>
+            <th>Medida</th>
+            <th>Preço (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bolos</td>
+            <td>Bolo Caseiro (Fubá / Cenoura / Laranja)</td>
+            <td>Unidade (~700g)</td>
+            <td>R$ 22,00</td>
+          </tr>
+          <tr>
+            <td>Bolos</td>
+            <td>Bolo Recheado / Confeitado</td>
+            <td>Kg</td>
+            <td>R$ 65,00</td>
+          </tr>
+          <tr>
+            <td>Roscas</td>
+            <td>Rosca Doce Tradicional / Trançada</td>
+            <td>Unidade (~600g)</td>
+            <td>R$ 20,00</td>
+          </tr>
+          <tr>
+            <td>Roscas</td>
+            <td>Rosca Recheada (Coco / Leite Condensado)</td>
+            <td>Unidade (~700g)</td>
+            <td>R$ 28,00</td>
+          </tr>
+          <tr>
+            <td>Bolachas</td>
+            <td>Bolachinhas Caseiras (Sequilhos / Amanteigados)</td>
+            <td>Pacote (500g)</td>
+            <td>R$ 18,00</td>
+          </tr>
+          <tr>
+            <td>Pão de Queijo</td>
+            <td>Pão de Queijo Canastra (Congelado)</td>
+            <td>Pacote (1 kg)</td>
+            <td>R$ 35,00</td>
+          </tr>
+          <tr>
+            <td>Pão de Queijo</td>
+            <td>Pão de Queijo Assado</td>
+            <td>Cento (100 un)</td>
+            <td>R$ 60,00</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- CALCULADORA DE ORÇAMENTO -->
+    <section class="card">
+      <h2>🧮 Simule seu Orçamento</h2>
+      <p>Selecione o produto e a quantidade para calcular o valor do seu pedido:</p>
+      
+      <div class="budget-grid">
+        <select id="product-select">
+          <option value="22">Bolo Caseiro (Unidade) - R$ 22,00</option>
+          <option value="65">Bolo Recheado (Kg) - R$ 65,00</option>
+          <option value="20">Rosca Doce Tradicional (Unidade) - R$ 20,00</option>
+          <option value="28">Rosca Recheada (Unidade) - R$ 28,00</option>
+          <option value="18">Bolachas Caseiras (Pacote 500g) - R$ 18,00</option>
+          <option value="35">Pão de Queijo Congelado (Kg) - R$ 35,00</option>
+          <option value="60">Pão de Queijo Assado (Cento) - R$ 60,00</option>
+        </select>
+        
+        <input type="number" id="product-qty" min="1" value="1" placeholder="Qtd">
+        
+        <button class="action-btn" id="add-btn">Adicionar</button>
+      </div>
+
+      <table id="cart-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qtd</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body">
+          <!-- Itens adicionados aparecem aqui -->
+        </tbody>
+      </table>
+
+      <div class="total-box">
+        Total do Orçamento: <span id="total-val">R$ 0,00</span>
+      </div>
+    </section>
+
+    <!-- ESTRUTURA DE CUSTOS DE MERCADO -->
+    <section class="card">
+      <h2>📊 Estimativa de Custos Atuais do Mercado</h2>
+      <p>Transparência sobre a composição dos custos médios de produção e operação:</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Insumo / Categoria</th>
+            <th>Custo Médio de Mercado</th>
+            <th>Impacto no Produto Final</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Queijo Canastra / Meia Cura</td>
+            <td>R$ 45,00 a R$ 60,00 / kg</td>
+            <td>Alto (Pão de Queijo)</td>
+          </tr>
+          <tr>
+            <td>Farinha de Trigo / Polvilho</td>
+            <td>R$ 5,50 a R$ 8,00 / kg</td>
+            <td>Médio (Base de Massas)</td>
+          </tr>
+          <tr>
+            <td>Manteiga / Ovos / Leite</td>
+            <td>Variável (Cesta Básica)</td>
+            <td>Médio (Estrutura e Sabor)</td>
+          </tr>
+          <tr>
+            <td>Mão de Obra + Energia/Gás</td>
+            <td>~30% do custo total</td>
+            <td>Operacional</td>
+          </tr>
+          <tr>
+            <td>Embalagens e Rotulagem</td>
+            <td>R$ 1,50 a R$ 4,00 / un</td>
+            <td>Apresentação e Conservação</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="notes">* Valores médios praticados no mercado para matérias-primas de primeira linha.</p>
+    </section>
+
+  </div>
+
+  <script>
+    // Alternar Tema Claro / Escuro
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        themeBtn.textContent = '☀️ Modo Claro';
+      } else {
+        themeBtn.textContent = '🌙 Modo Escuro';
+      }
+    });
+
+    // Lógica do Orçamento
+    const productSelect = document.getElementById('product-select');
+    const productQty = document.getElementById('product-qty');
+    const addBtn = document.getElementById('add-btn');
+    const cartBody = document.getElementById('cart-body');
+    const totalVal = document.getElementById('total-val');
+
+    let totalSum = 0;
+
+    addBtn.addEventListener('click', () => {
+      const selectedOption = productSelect.options[productSelect.selectedIndex];
+      const price = parseFloat(selectedOption.value);
+      const qty = parseInt(productQty.value);
+
+      if (isNaN(qty) || qty <= 0) {
+        alert('Por favor, insira uma quantidade válida.');
+        return;
+      }
+
+      const name = selectedOption.text.split(' - ')[0];
+      const subtotal = price * qty;
+
+      totalSum += subtotal;
+
+      // Adiciona linha na tabela de orçamento
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${qty}</td>
+        <td>R$ ${subtotal.toFixed(2).replace('.', ',')}</td>
+      `;
+      cartBody.appendChild(row);
+
+      // Atualiza Total
+      totalVal.textContent = `R$ ${totalSum.toFixed(2).replace('.', ',')}`;
+
+      // Reseta quantidade
+      productQty.value = 1;
+    });
+  </script>
+
+</body>
+</html>
