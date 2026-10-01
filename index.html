@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quitutes da Vovó - Padaria & Confeitaria</title>
   <style>
-    /* Variaveis de Cores e Temas */
+    /* Variáveis Globais */
     :root {
       --bg-color: #fcf8f2;
       --card-bg: #ffffff;
@@ -30,36 +30,26 @@
       --accent-color: #66bb6a;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
       margin: 0;
-      padding: 20px;
+      padding: 15px;
       transition: background-color 0.3s, color 0.3s;
     }
 
     .container {
       max-width: 900px;
       margin: 0 auto;
+      width: 100%;
     }
 
-    header {
-      text-align: center;
-      margin-bottom: 2rem;
-      position: relative;
-    }
-
-    h1 {
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--secondary-color);
-    }
-
+    /* Cabeçalho e Botão de Tema */
     .theme-toggle-container {
       display: flex;
       justify-content: flex-end;
@@ -82,12 +72,28 @@
       color: white;
     }
 
-    /* Cartões / Seções */
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+    }
+
+    .subtitle {
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      color: var(--secondary-color);
+    }
+
+    /* Cartões */
     .card {
       background-color: var(--card-bg);
       border-radius: 12px;
-      padding: 1.5rem 2rem;
-      margin-bottom: 2rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
       border: 1px solid var(--border-color);
     }
@@ -96,10 +102,26 @@
       border-bottom: 2px solid var(--primary-color);
       padding-bottom: 8px;
       color: var(--primary-color);
-      font-size: 1.4rem;
+      font-size: 1.3rem;
+      margin-top: 0;
     }
 
-    /* Tabelas */
+    /* Imagens dos Produtos */
+    .product-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .product-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Tabelas Base */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -117,22 +139,39 @@
       color: var(--text-color);
     }
 
-    /* Simulador de Orçamento */
+    /* Formulário de Orçamento Responsivo */
     .budget-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
 
     select, input[type="number"] {
-      padding: 10px;
+      padding: 12px;
       border: 1px solid var(--border-color);
       border-radius: 6px;
       background-color: var(--bg-color);
       color: var(--text-color);
       font-size: 1rem;
+      width: 100%;
+    }
+
+    .action-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s;
+      width: 100%;
+    }
+
+    .action-btn:hover {
+      background-color: var(--primary-hover);
     }
 
     .total-box {
@@ -140,32 +179,77 @@
       padding: 15px;
       border-radius: 8px;
       text-align: right;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: bold;
       margin-top: 15px;
       color: var(--accent-color);
-    }
-
-    .action-btn {
-      background-color: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-
-    .action-btn:hover {
-      background-color: var(--primary-hover);
     }
 
     .notes {
       font-size: 0.85rem;
       color: var(--secondary-color);
       margin-top: 10px;
+    }
+
+    /* Breakpoint para Monitores e Tablets (Layout em Grelha) */
+    @media (min-width: 600px) {
+      .budget-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        align-items: center;
+      }
+
+      .action-btn {
+        width: auto;
+      }
+    }
+
+    /* Responsividade da Tabela de Preços para Dispositivos Móveis */
+    @media (max-width: 599px) {
+      .responsive-table thead {
+        display: none; /* Esconde o cabeçalho original em ecrãs pequenos */
+      }
+
+      .responsive-table, 
+      .responsive-table tbody, 
+      .responsive-table tr, 
+      .responsive-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .responsive-table tr {
+        margin-bottom: 15px;
+        background-color: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      .responsive-table td {
+        text-align: right;
+        padding: 8px 5px;
+        border-bottom: 1px dashed var(--border-color);
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .responsive-table td:last-child {
+        border-bottom: none;
+      }
+
+      .responsive-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: left;
+      }
+
+      .product-cell {
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
@@ -181,60 +265,73 @@
       <p class="subtitle">Bolos, Roscas, Bolachas e Pães de Queijo Artesanais</p>
     </header>
 
-    <!-- TABELA DE PREÇOS -->
+    <!-- TABELA DE PREÇOS RESPONSIVA COM IMAGENS -->
     <section class="card">
-      <h2>📋 Tabela de Preços de Venda</h2>
-      <table>
+      <h2>📋 Tabela de Preços com Imagens</h2>
+      <table class="responsive-table">
         <thead>
           <tr>
-            <th>Categoria</th>
             <th>Produto</th>
+            <th>Categoria</th>
             <th>Medida</th>
             <th>Preço (R$)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Bolos</td>
-            <td>Bolo Caseiro (Fubá / Cenoura / Laranja)</td>
-            <td>Unidade (~700g)</td>
-            <td>R$ 22,00</td>
+            <td data-label="Produto">
+              <div class="product-cell">
+                <img src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=100&auto=format&fit=crop&q=80" alt="Bolo Caseiro" class="product-img">
+                <span>Bolo Caseiro de Fubá</span>
+              </div>
+            </td>
+            <td data-label="Categoria">Bolos</td>
+            <td data-label="Medida">Unidade (~700g)</td>
+            <td data-label="Preço">R$ 22,00</td>
           </tr>
           <tr>
-            <td>Bolos</td>
-            <td>Bolo Recheado / Confeitado</td>
-            <td>Kg</td>
-            <td>R$ 65,00</td>
+            <td data-label="Produto">
+              <div class="product-cell">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=100&auto=format&fit=crop&q=80" alt="Bolo Recheado" class="product-img">
+                <span>Bolo Recheado de Chocolate</span>
+              </div>
+            </td>
+            <td data-label="Categoria">Bolos</td>
+            <td data-label="Medida">Kg</td>
+            <td data-label="Preço">R$ 65,00</td>
           </tr>
           <tr>
-            <td>Roscas</td>
-            <td>Rosca Doce Tradicional / Trançada</td>
-            <td>Unidade (~600g)</td>
-            <td>R$ 20,00</td>
+            <td data-label="Produto">
+              <div class="product-cell">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=100&auto=format&fit=crop&q=80" alt="Rosca Doce" class="product-img">
+                <span>Rosca Doce Trançada</span>
+              </div>
+            </td>
+            <td data-label="Categoria">Roscas</td>
+            <td data-label="Medida">Unidade (~600g)</td>
+            <td data-label="Preço">R$ 20,00</td>
           </tr>
           <tr>
-            <td>Roscas</td>
-            <td>Rosca Recheada (Coco / Leite Condensado)</td>
-            <td>Unidade (~700g)</td>
-            <td>R$ 28,00</td>
+            <td data-label="Produto">
+              <div class="product-cell">
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=100&auto=format&fit=crop&q=80" alt="Bolachas Sequilhos" class="product-img">
+                <span>Bolachinhas Sequilhos</span>
+              </div>
+            </td>
+            <td data-label="Categoria">Bolachas</td>
+            <td data-label="Medida">Pacote (500g)</td>
+            <td data-label="Preço">R$ 18,00</td>
           </tr>
           <tr>
-            <td>Bolachas</td>
-            <td>Bolachinhas Caseiras (Sequilhos / Amanteigados)</td>
-            <td>Pacote (500g)</td>
-            <td>R$ 18,00</td>
-          </tr>
-          <tr>
-            <td>Pão de Queijo</td>
-            <td>Pão de Queijo Canastra (Congelado)</td>
-            <td>Pacote (1 kg)</td>
-            <td>R$ 35,00</td>
-          </tr>
-          <tr>
-            <td>Pão de Queijo</td>
-            <td>Pão de Queijo Assado</td>
-            <td>Cento (100 un)</td>
-            <td>R$ 60,00</td>
+            <td data-label="Produto">
+              <div class="product-cell">
+                <img src="https://images.unsplash.com/photo-1598142773945-c38096277d34?w=100&auto=format&fit=crop&q=80" alt="Pão de Queijo" class="product-img">
+                <span>Pão de Queijo Assado</span>
+              </div>
+            </td>
+            <td data-label="Categoria">Pão de Queijo</td>
+            <td data-label="Medida">Cento (100 un)</td>
+            <td data-label="Preço">R$ 60,00</td>
           </tr>
         </tbody>
       </table>
@@ -247,12 +344,10 @@
       
       <div class="budget-grid">
         <select id="product-select">
-          <option value="22">Bolo Caseiro (Unidade) - R$ 22,00</option>
-          <option value="65">Bolo Recheado (Kg) - R$ 65,00</option>
-          <option value="20">Rosca Doce Tradicional (Unidade) - R$ 20,00</option>
-          <option value="28">Rosca Recheada (Unidade) - R$ 28,00</option>
-          <option value="18">Bolachas Caseiras (Pacote 500g) - R$ 18,00</option>
-          <option value="35">Pão de Queijo Congelado (Kg) - R$ 35,00</option>
+          <option value="22">Bolo Caseiro de Fubá - R$ 22,00</option>
+          <option value="65">Bolo Recheado de Chocolate (Kg) - R$ 65,00</option>
+          <option value="20">Rosca Doce Trançada - R$ 20,00</option>
+          <option value="18">Bolachinhas Sequilhos (500g) - R$ 18,00</option>
           <option value="60">Pão de Queijo Assado (Cento) - R$ 60,00</option>
         </select>
         
@@ -282,40 +377,29 @@
     <!-- ESTRUTURA DE CUSTOS DE MERCADO -->
     <section class="card">
       <h2>📊 Estimativa de Custos Atuais do Mercado</h2>
-      <p>Transparência sobre a composição dos custos médios de produção e operação:</p>
-      <table>
+      <table class="responsive-table">
         <thead>
           <tr>
             <th>Insumo / Categoria</th>
-            <th>Custo Médio de Mercado</th>
-            <th>Impacto no Produto Final</th>
+            <th>Custo Médio</th>
+            <th>Impacto no Produto</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Queijo Canastra / Meia Cura</td>
-            <td>R$ 45,00 a R$ 60,00 / kg</td>
-            <td>Alto (Pão de Queijo)</td>
+            <td data-label="Insumo">Queijo Canastra / Meia Cura</td>
+            <td data-label="Custo">R$ 45,00 a R$ 60,00 / kg</td>
+            <td data-label="Impacto">Alto (Pão de Queijo)</td>
           </tr>
           <tr>
-            <td>Farinha de Trigo / Polvilho</td>
-            <td>R$ 5,50 a R$ 8,00 / kg</td>
-            <td>Médio (Base de Massas)</td>
+            <td data-label="Insumo">Farinha de Trigo / Polvilho</td>
+            <td data-label="Custo">R$ 5,50 a R$ 8,00 / kg</td>
+            <td data-label="Impacto">Médio (Base de Massas)</td>
           </tr>
           <tr>
-            <td>Manteiga / Ovos / Leite</td>
-            <td>Variável (Cesta Básica)</td>
-            <td>Médio (Estrutura e Sabor)</td>
-          </tr>
-          <tr>
-            <td>Mão de Obra + Energia/Gás</td>
-            <td>~30% do custo total</td>
-            <td>Operacional</td>
-          </tr>
-          <tr>
-            <td>Embalagens e Rotulagem</td>
-            <td>R$ 1,50 a R$ 4,00 / un</td>
-            <td>Apresentação e Conservação</td>
+            <td data-label="Insumo">Manteiga / Ovos / Leite</td>
+            <td data-label="Custo">Variável (Cesta Básica)</td>
+            <td data-label="Impacto">Médio (Sabor e Estrutura)</td>
           </tr>
         </tbody>
       </table>
@@ -360,7 +444,6 @@
 
       totalSum += subtotal;
 
-      // Adiciona linha na tabela de orçamento
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${name}</td>
@@ -369,10 +452,8 @@
       `;
       cartBody.appendChild(row);
 
-      // Atualiza Total
       totalVal.textContent = `R$ ${totalSum.toFixed(2).replace('.', ',')}`;
 
-      // Reseta quantidade
       productQty.value = 1;
     });
   </script>
